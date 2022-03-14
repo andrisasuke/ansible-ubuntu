@@ -1,0 +1,3 @@
+- name: Install Docker
+  debug:
+    msg: lets install docker

@@ -1,0 +1,27 @@
+- name: Add redis repository from PPA
+  apt_repository:
+    repo: ppa:redislabs/redis
+
+- name: Update repositories cache and install "redis-server" package
+  apt:
+    name: redis-server
+    update_cache: yes
+
+- name: Setting up redis bind address
+  lineinfile:
+    dest: /etc/redis/redis.conf
+    regexp: '^bind 127.0.0.1 -::1'
+    line: "bind {{ redis_bind_address }}"
+    state: present
+  notify:
+    - Restart Redis
+
+- name: Setting up redis port
+  lineinfile:
+    dest: /etc/redis/redis.conf
+    regexp: '^port 6379'
+    line: "port {{ redis_port }}"
+    state: present
+  notify:
+    - Restart Redis
+

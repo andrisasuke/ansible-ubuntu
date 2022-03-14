@@ -1,0 +1,11 @@
+[machine]
+localhost   ansible_connection=local
+
+[machine:vars]
+home_user=ubuntu
+home_dir=/home/ubuntu
+code_server_host_port=127.0.0.1:8084
+code_server_password=welcome1
+redis_bind_address=127.0.0.1
+redis_port=6379
+java_version=8

@@ -1,0 +1,8 @@
+---
+# tasks file for code-server
+
+- include_tasks: install-vscode.yaml
+- include_tasks: install-redis.yaml
+- include_tasks: install-java.yaml
+- include_tasks: install-nginx.yaml
+- include_tasks: install-docker.yaml

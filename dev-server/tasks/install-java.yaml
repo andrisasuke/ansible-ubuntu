@@ -1,0 +1,46 @@
+- name: "Set variables java version"
+  set_fact:
+    java_lib: '{{ java_version }}'
+
+- name: Install JDK Version
+  debug:
+     msg: "installing jdk version {{ java_version }} {{ ansible_architecture }}"
+
+- name: Get JDK8 file for linux amd64
+  get_url:
+     url: https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u322-b06/OpenJDK8U-jdk_x64_linux_hotspot_8u322b06.tar.gz
+     dest: "{{ home_dir }}/open-jdk-{{ java_lib }}.tar.gz"
+  when: ansible_architecture == "x86_64" and java_lib == 8
+
+- name: Get JDK11 file for linux amd64
+  get_url:
+     url: https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.14.1+1/OpenJDK11U-jdk_x64_linux_hotspot_11.0.14.1_1.tar.gz
+     dest: "{{ home_dir }}/open-jdk-{{ java_lib }}.tar.gz"
+  when: ansible_architecture == "x86_64" and java_lib == 11
+
+- name: Make java directory
+  file:
+     path: /usr/lib/jdk
+     state: directory
+
+- name: unpack JDK file
+  unarchive:
+     dest: /usr/lib/jdk
+     src: "{{ home_dir }}/open-jdk-{{ java_lib }}.tar.gz"
+     remote_src: yes
+
+- name: update alternatives for java 8
+  alternatives:
+     name: java
+     path: /usr/lib/jdk/jdk8u322-b06/bin/java
+     link: /usr/bin/java
+     priority: 20000
+  when: java_lib == 8
+
+- name: update alternatives for java 11
+  alternatives:
+     name: java
+     path: /usr/lib/jdk/jdk-11.0.14.1+1/bin/java
+     link: /usr/bin/java
+     priority: 20000
+  when: java_lib == 11

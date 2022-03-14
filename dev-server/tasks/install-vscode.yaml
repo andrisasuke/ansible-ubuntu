@@ -1,0 +1,23 @@
+
+- name: Download vscode-server
+  get_url:
+    url: https://code-server.dev/install.sh
+    dest: "{{ home_dir }}"
+    mode: 0755
+
+- name: Installing vscode-server
+  shell: "./install.sh"
+  args:
+    chdir: "{{ home_dir }}"
+
+- name: Create vscode-server app config
+  template:
+    src: code-server-config.j2
+    dest: /home/ubuntu/.config/code-server/config.yaml
+    mode: '0644'
+
+- name: Enable vscode-server as systemd service
+  systemd:
+    name: "code-server@{{ home_user }}"
+    state: started
+    enabled: yes
