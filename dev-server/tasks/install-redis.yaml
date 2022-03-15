@@ -1,6 +1,7 @@
 - name: Add redis repository from PPA
   apt_repository:
     repo: ppa:redislabs/redis
+    state: present
 
 - name: Update repositories cache and install "redis-server" package
   apt:
