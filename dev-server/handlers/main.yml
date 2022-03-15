@@ -5,3 +5,7 @@
   systemd:
     name: redis-server
     state: restarted
+
+- name: Success Docker Install
+  debug:
+    msg: Don't forget to reboot your system or restart your shell
