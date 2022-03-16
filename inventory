@@ -8,4 +8,6 @@ code_server_host_port=127.0.0.1:8084
 code_server_password=welcome1
 redis_bind_address=127.0.0.1
 redis_port=6379
-java_version=11
+java_version=8
+golang_version=1.17
+golang_gopath=/home/ubuntu/go

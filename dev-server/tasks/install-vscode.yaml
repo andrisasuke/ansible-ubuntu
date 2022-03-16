@@ -16,6 +16,11 @@
     dest: /home/ubuntu/.config/code-server/config.yaml
     mode: '0644'
 
+- name: Remove installation file
+  file:
+    path: "{{ home_dir }}/install.sh"
+    state: absent
+
 - name: Enable vscode-server as systemd service
   systemd:
     name: "code-server@{{ home_user }}"

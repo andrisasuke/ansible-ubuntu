@@ -1,0 +1,52 @@
+
+- name: Read Go architecture for linux {{ ansible_architecture }}
+  include_vars: "{{ lookup('first_found', params) }}"
+  vars:
+    params:
+      files:
+        - 'golang_{{ ansible_architecture }}.yml'
+        - default.yml
+      paths:
+        - 'vars'
+
+- name: Install Go Version {{ golang_version }}
+  debug:
+     msg: "installing go version {{ golang_version }} {{ golang_architecture }}"
+
+- name: Get go.{{ golang_version }}.{{ golang_architecture }}.tar.gz file
+  get_url:
+     url: "https://dl.google.com/go/go{{ golang_version }}.{{ golang_architecture  }}.tar.gz"
+     dest: "{{ home_dir }}/golang{{ golang_version }}.tar.gz"
+
+- name: Unpack Go file
+  unarchive:
+     dest: /usr/local
+     src: "{{ home_dir }}/golang{{ golang_version }}.tar.gz"
+     remote_src: yes
+
+- name: Create GOPATH directories
+  file:
+     path: "{{ golang_gopath }}"
+     state: directory
+     mode: 0775
+
+- name: Remove go.{{ golang_version }}.{{ golang_architecture }}.tar.gz file
+  file:
+    path: "{{ home_dir }}/golang{{ golang_version }}.tar.gz"
+    state: absent
+
+- name: Modify .bashrc
+  blockinfile:
+     dest: "{{ home_dir }}/.bashrc"
+     block: |
+        export GOPATH={{ golang_gopath }}/test
+        export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+     marker: '# {mark} ANSIBLE MANAGED BLOCK - changes for golang'
+     insertafter: EOF
+     create: yes 
+
+- name: Apply .bashrc changes or DO source ~/.bashrc MANNUALY IF IT DOESNT EFFECT
+  become_user: "{{ home_user }}"
+  shell: source /home/{{ home_user }}/.bashrc
+  args:
+    executable: /bin/bash

@@ -32,6 +32,11 @@
      src: "{{ home_dir }}/open-jdk-{{ java_lib }}.tar.gz"
      remote_src: yes
 
+- name: Remove downloaded jdk file
+  file:
+    path: "{{ home_dir }}/open-jdk-{{ java_lib }}.tar.gz"
+    state: absent
+
 - name: update alternatives for java {{ java_lib }}
   alternatives:
      name: java
