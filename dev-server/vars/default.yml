@@ -1,0 +1,3 @@
+# default is jdk8 amd64
+jdk_url: https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u322-b06/OpenJDK8U-jdk_x64_linux_hotspot_8u322b06.tar.gz
+jdk_release: jdk8u322-b06
