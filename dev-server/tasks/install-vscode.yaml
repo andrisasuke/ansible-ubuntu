@@ -10,6 +10,12 @@
   args:
     chdir: "{{ home_dir }}"
 
+- name: Create .config directories
+  file:
+     path: "/home/{{ home_dir }}/.config/code-server"
+     state: directory
+     mode: 0775
+
 - name: Create vscode-server app config
   template:
     src: code-server-config.j2
