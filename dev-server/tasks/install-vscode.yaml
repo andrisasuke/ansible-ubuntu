@@ -12,14 +12,15 @@
 
 - name: Create .config directories
   file:
-     path: "/home/{{ home_dir }}/.config/code-server"
+     path: "/home/{{ home_user }}/.config/code-server"
      state: directory
      mode: 0775
+     owner: "{{ home_user }}"
 
 - name: Create vscode-server app config
   template:
     src: code-server-config.j2
-    dest: /home/ubuntu/.config/code-server/config.yaml
+    dest: "/home/{{ home_user }}/.config/code-server/config.yaml"
     mode: '0644'
 
 - name: Remove installation file
