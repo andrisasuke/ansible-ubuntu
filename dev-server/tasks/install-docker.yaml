@@ -21,4 +21,3 @@
     name: '{{ home_user }}'
     groups: docker
     append: yes
-  notify: Success Docker Install

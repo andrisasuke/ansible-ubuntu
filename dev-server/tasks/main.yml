@@ -7,3 +7,8 @@
 - include_tasks: install-nginx.yaml
 - include_tasks: install-docker.yaml
 - include_tasks: install-golang.yaml
+
+- name: Success Dev Server
+  debug:
+    msg: Don't forget to reboot your system or restart your shell
+
