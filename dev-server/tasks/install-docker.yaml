@@ -14,7 +14,7 @@
 
 - name: Update apt and install docker-ce
   apt: name={{ item }} update_cache=yes state=latest force_apt_get=yes
-  loop: [ 'docker-ce', 'docker-ce-cli', 'containerd.io' ]
+  loop: [ 'docker-ce', 'docker-ce-cli', 'containerd.io', 'docker-compose' ]
 
 - name: Add user {{ home_user }} to group sudo docker
   user:
