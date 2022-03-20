@@ -1,0 +1,3 @@
+# miniconda for linux arm64
+miniconda_url: https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-aarch64.sh
+miniconda_checksum: sha256:00c7127a8a8d3f4b9c2ab3391c661239d5b9a88eafe895fd0f3f2a8d9c0f4556

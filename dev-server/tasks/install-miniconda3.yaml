@@ -1,0 +1,56 @@
+- name: Read miniconda architecture for linux {{ ansible_architecture }}
+  include_vars: "{{ lookup('first_found', params) }}"
+  vars:
+    params:
+      files:
+        - 'miniconda3_{{ ansible_architecture }}.yml'
+        - default.yml
+      paths:
+        - 'vars'
+
+- name: Download miniconda
+  get_url:
+    url: "{{ miniconda_url }}"
+    dest: "{{ home_dir }}/install-miniconda.sh"
+    checksum: "{{ miniconda_checksum }}"
+    mode: 0550
+
+- name: Create conda folder
+  become: True
+  file:
+    path: /opt/miniconda3
+    state: directory
+    owner: "{{ home_user }}"
+    mode: 755
+    recurse: yes
+
+- name: Run minconda installer
+  shell: "{{ home_dir }}/install-miniconda.sh -b -u -p /opt/miniconda3"
+
+- name: Remove the installer
+  file:
+    state: absent
+    path: "{{ home_dir }}/install-miniconda.sh"
+
+- name: Modify .bashrc to add miniconda path
+  blockinfile:
+    dest: "{{ home_dir }}/.bashrc"
+    block: |
+        export PATH=/opt/miniconda3/bin:$PATH
+    marker: '# {mark} ANSIBLE MANAGED BLOCK - changes for miniconda'
+    insertafter: EOF
+    create: yes
+
+- name: conda - read permission for all
+  become: True
+  file:
+    path: /opt/miniconda3
+    mode: +r
+    recurse: yes
+
+- name: conda - execution permission for all
+  become: True
+  file:
+    path: /opt/miniconda3/bin
+    mode: +x
+    recurse: yes
