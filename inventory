@@ -11,3 +11,4 @@ redis_port=6379
 java_version=8
 golang_version=1.17
 golang_gopath=/home/ubuntu/go
+nodejs_version=14
