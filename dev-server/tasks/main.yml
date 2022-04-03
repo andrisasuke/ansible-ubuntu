@@ -8,6 +8,7 @@
 - include_tasks: install-docker.yaml
 - include_tasks: install-golang.yaml
 - include_tasks: install-miniconda3.yaml
+- include_tasks: install-nodejs.yaml
 
 - name: Success Dev Server
   debug:

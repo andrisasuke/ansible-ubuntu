@@ -1,0 +1,22 @@
+- name: Add yarn apt key
+  apt_key:
+    url: https://dl.yarnpkg.com/debian/pubkey.gpg
+    state: present
+
+- name: Add yarn repository ubuntu {{ ansible_distribution_release }}
+  apt_repository:
+    repo: "deb https://dl.yarnpkg.com/debian/ stable main"
+    state: present
+
+- name: add nodejs 14.x setup
+  shell: 'curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -'
+
+- name: install yarn
+  apt:
+    name: yarn
+    update_cache: yes
+
+- name: install nodejs
+  apt:
+    name: yarn
+    update_cache: yes

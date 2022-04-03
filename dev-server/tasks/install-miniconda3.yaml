@@ -20,7 +20,7 @@
 - name: Create conda folder
   become: True
   file:
-    path: /opt/miniconda3
+    path: "{{ home_dir }}/miniconda3"
     state: directory
     owner: "{{ home_user }}"
     mode: 755
@@ -38,7 +38,7 @@
   blockinfile:
     dest: "{{ home_dir }}/.bashrc"
     block: |
-        export PATH=/opt/miniconda3/bin:$PATH
+        export PATH={{ home_dir }}/miniconda3/bin:$PATH
     marker: '# {mark} ANSIBLE MANAGED BLOCK - changes for miniconda'
     insertafter: EOF
     create: yes
@@ -46,13 +46,13 @@
 - name: conda - read permission for all
   become: True
   file:
-    path: /opt/miniconda3
+    path: "{{ home_dir }}/miniconda3"
     mode: +r
     recurse: yes
 
 - name: conda - execution permission for all
   become: True
   file:
-    path: /opt/miniconda3/bin
+    path: "{{ home_dir }}/miniconda3/bin"
     mode: +x
     recurse: yes

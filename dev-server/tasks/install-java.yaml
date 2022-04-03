@@ -44,3 +44,7 @@
      link: /usr/bin/java
      priority: 20000
 
+- name: install maven
+  apt:
+    name: maven
+    update_cache: yes
