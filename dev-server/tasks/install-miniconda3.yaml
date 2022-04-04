@@ -27,7 +27,7 @@
     recurse: yes
 
 - name: Run minconda installer
-  shell: "{{ home_dir }}/install-miniconda.sh -b -u -p /opt/miniconda3"
+  shell: "{{ home_dir }}/install-miniconda.sh -b -u -p {{ home_dir }}/miniconda3"
 
 - name: Remove the installer
   file:
