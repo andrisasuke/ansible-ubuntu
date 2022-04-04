@@ -18,12 +18,12 @@
     mode: 0550
 
 - name: Create conda folder
-  become: True
   file:
     path: "{{ home_dir }}/miniconda3"
     state: directory
     owner: "{{ home_user }}"
-    mode: 755
+    group: "{{ home_user }}"
+    mode: 0755
     recurse: yes
 
 - name: Run minconda installer
@@ -43,16 +43,17 @@
     insertafter: EOF
     create: yes
 
-- name: conda - read permission for all
-  become: True
+- name: conda folder - read permission for all
   file:
     path: "{{ home_dir }}/miniconda3"
-    mode: +r
+    mode: 0755
     recurse: yes
+    owner: "{{ home_user }}"
+    group: "{{ home_user }}"
 
-- name: conda - execution permission for all
-  become: True
-  file:
-    path: "{{ home_dir }}/miniconda3/bin"
-    mode: +x
-    recurse: yes
+#- name: conda - execution permission for all
+#  become: True
+#  file:
+#    path: "{{ home_dir }}/miniconda3/bin"
+#    mode: +x
+#    recurse: yes
