@@ -14,8 +14,6 @@
     regexp: '^bind 127.0.0.1 -::1'
     line: "bind {{ redis_bind_address }}"
     state: present
-  notify:
-    - Restart Redis
 
 - name: Setting up redis port
   lineinfile:
@@ -23,6 +21,9 @@
     regexp: '^port 6379'
     line: "port {{ redis_port }}"
     state: present
-  notify:
-    - Restart Redis
 
+- name: Restart & enable redis-server as systemd service
+  systemd:
+    name: redis-server
+    state: restarted
+    enabled: yes
