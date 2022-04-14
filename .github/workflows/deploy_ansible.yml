@@ -14,5 +14,9 @@ jobs:
     steps:
     - name: checkout repo
       uses: actions/checkout@v2
-    - name: Run Ansible Playbook
-      run: python3 --version 
+    - name: Install Ansible Playbook
+      run: |
+        apt update
+        apt install software-properties-common
+        add-apt-repository --yes --update ppa:ansible/ansible
+        apt install ansible
