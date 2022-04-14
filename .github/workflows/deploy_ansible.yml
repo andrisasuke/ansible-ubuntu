@@ -20,8 +20,8 @@ jobs:
         sudo apt install software-properties-common
         sudo add-apt-repository --yes --update ppa:ansible/ansible
         sudo apt install ansible
-    #- name: Run ansible playbook
-    #  run: ansible-playbook -i dev-server/tests/inventory-runner-test ubuntu.yaml
+    - name: Run ansible playbook
+      run: ansible-playbook -i dev-server/tests/inventory-runner-test ubuntu.yaml
 
   deploy_ubuntu_aarch64:
     runs-on: ubuntu-20.04
@@ -29,8 +29,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2.1.0
       - uses: uraimo/run-on-arch-action@v2
-        name: Run commands
-        id: runcmd
+        name: Deploy ansible playbook
+        id: deploy_ansible_playbook
         with:
           arch: aarch64
           distro: ubuntu20.04
@@ -38,9 +38,8 @@ jobs:
           githubToken: ${{ github.token }}
 
           run: |
-            uname -a
-            echo ::set-output name=uname::$(uname -a)
-
-      - name: Get the output
-        run: |
-          echo "The uname output was ${{ steps.runcmd.outputs.uname }}"
+            sudo apt update
+            sudo apt install software-properties-common
+            sudo add-apt-repository --yes --update ppa:ansible/ansible
+            sudo apt install ansible
+            ansible-playbook -i dev-server/tests/inventory-runner-test ubuntu.yaml
