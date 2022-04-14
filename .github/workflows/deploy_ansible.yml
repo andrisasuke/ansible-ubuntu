@@ -38,8 +38,8 @@ jobs:
           githubToken: ${{ github.token }}
 
           run: |
-            sudo apt update
-            sudo apt install software-properties-common
-            sudo add-apt-repository --yes --update ppa:ansible/ansible
-            sudo apt install ansible
+            apt update
+            apt install software-properties-common
+            add-apt-repository --yes --update ppa:ansible/ansible
+            apt install ansible
             ansible-playbook -i dev-server/tests/inventory-runner-test ubuntu.yaml
