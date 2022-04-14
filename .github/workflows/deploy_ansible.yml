@@ -14,9 +14,5 @@ jobs:
     steps:
     - name: checkout repo
       uses: actions/checkout@v2
-    - name: Lint Ansible Playbook
-      uses: ansible/ansible-lint-action@master
-      with:
-        targets: ""
     - name: Run Ansible Playbook
       run: python3 --version 
