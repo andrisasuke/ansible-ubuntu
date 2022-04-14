@@ -41,5 +41,7 @@ jobs:
             apt update
             apt --yes install software-properties-common
             add-apt-repository --yes --update ppa:ansible/ansible
-            apt --yes install ansible
-            ansible-playbook -i dev-server/tests/inventory-runner-test ubuntu.yaml
+            apt --yes install curl ansible
+            cd ~
+            pwd
+            
