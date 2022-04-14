@@ -14,11 +14,11 @@ jobs:
     steps:
     - name: checkout repo
       uses: actions/checkout@v2
-    - name: Install Ansible Playbook
+    - name: Install ansible playbook
       run: |
         sudo apt update
         sudo apt install software-properties-common
         sudo add-apt-repository --yes --update ppa:ansible/ansible
         sudo apt install ansible
-        cd ~
-        pwd
+    - name: Run ansible playbook
+      run: ansible-playbook -i dev-server/tests/inventory-runner-test ubuntu.yaml
