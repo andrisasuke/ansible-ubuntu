@@ -42,6 +42,5 @@ jobs:
             apt --yes install software-properties-common
             add-apt-repository --yes --update ppa:ansible/ansible
             apt --yes install curl ansible
-            cd ~
-            pwd
+            ansible-playbook -i dev-server/tests/inventory-ubuntu-aarch64-test ubuntu.yaml
             
