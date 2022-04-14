@@ -39,7 +39,7 @@ jobs:
 
           run: |
             apt update
-            apt install software-properties-common
+            apt --yes install software-properties-common
             add-apt-repository --yes --update ppa:ansible/ansible
-            apt install ansible
+            apt --yes install ansible
             ansible-playbook -i dev-server/tests/inventory-runner-test ubuntu.yaml
