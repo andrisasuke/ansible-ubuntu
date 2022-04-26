@@ -1,7 +1,7 @@
 ansible-ubuntu
 =========
 
-Automate install coding tools to new fresh install ubuntu workstation
+Automate install coding tools to new fresh install ubuntu workstation. Support from linux amd64 and arm64 
 
 List of tools
 - JDK 8 or 11
