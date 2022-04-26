@@ -1,38 +1,40 @@
-Role Name
+ansible-ubuntu
 =========
 
-A brief description of the role goes here.
+Automate install coding tools to new fresh install ubuntu workstation
+
+List of tools
+- JDK 8 or 11
+- Golang
+- Docker
+- NodeJS
+- Anaconda Python
+- Redis
+- VS Code
+- will be continued
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+install ansible-playbook and the dependencies
+```
+sudo apt update
+sudo apt install software-properties-common
+sudo add-apt-repository --yes --update ppa:ansible/ansible
+sudo apt install ansible
+```
 
-Role Variables
+How to Run
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Checkout the repo and adjust values in file `inventory` base on your environment. eg: `home_user` or `home_dir`
 
-Dependencies
-------------
-
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
-
-Example Playbook
-----------------
-
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+Execute ansible-playbook
+```
+ansible-playbook -i inventory ubuntu.yaml
+```
 
 License
 -------
 
 BSD
-
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
